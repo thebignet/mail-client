@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>Mail client ?</title>
+    <title>Mail client</title>
     <r:require module="mail" />
     <r:require modules="bootstrap"/>
     <meta name="layout" content="main">
@@ -23,7 +23,7 @@
         <table class="table table-condensed table-hover">
 		  <thead>
 		    <tr>
-		      <th class="span1"><input type="checkbox"></th>
+		      <th class="span1"><input type="checkbox" class="selectAll"><i class="icon-refresh refresh"></i></th>
 		      <th class="span2"></th>
 		      <th class="span9"></th>
 		      <th class="span2"></th>
@@ -40,14 +40,14 @@
     <!-- Templates -->
 
     <script type="text/template" id="mail-template">
-      <td><input type="checkbox"> <a href="#"><i
+      <td class="star"><input type="checkbox"> <a href="#"><i
       	{! if (star) { !}
 			class="icon-star"
 		{! } else { !}
 			class="icon-star-empty"
 		{! } !}
 		></i></a></td>
-      <td><strong>{{sender}}</strong></td>
+      <td><strong>{{sender}} ({{id}})</strong></td>
       <td><strong>{{subject}}</strong></td>
       <td><strong>{!print(Globalize.format( new Date(date), "dd/MM/yyyy"));!}</strong></td>
     </script>
