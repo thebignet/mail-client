@@ -74,6 +74,8 @@ $(function(){
         		CurrentMailBody = new MailBody({id:this.model.get("id")});
         		CurrentMailBody.fetch();
         		new MailBodyView({model:CurrentMailBody});
+        		this.$el.siblings().removeClass('info');
+        		this.$el.addClass('info');
         	}
         },
     	initialize: function(){
