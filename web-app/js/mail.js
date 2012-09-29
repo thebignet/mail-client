@@ -57,6 +57,8 @@ $(function(){
     	}
     });
 
+    window.CurrentMailBody = null;
+    
     window.MailView = Backbone.View.extend({
     	tagName:"tr",
     	template: _.template($('#mail-template').html()),
@@ -68,9 +70,11 @@ $(function(){
             this.model.toggleStar();
         },
         showBody: function() {
-        	var mailBody = new MailBody({id:this.model.get("id")});
-        	mailBody.fetch();
-    		new MailBodyView({model:mailBody});
+        	if(CurrentMailBody==null || CurrentMailBody.get("id") != this.model.get("id")){
+        		CurrentMailBody = new MailBody({id:this.model.get("id")});
+        		CurrentMailBody.fetch();
+        		new MailBodyView({model:CurrentMailBody});
+        	}
         },
     	initialize: function(){
     		this.model.bind('change',this.render, this);
