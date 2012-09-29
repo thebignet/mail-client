@@ -10,6 +10,12 @@ class UrlMappings {
 		"/mail/$id?"(controller: "mail") {
 			action = [GET:"list", POST: "save", DELETE: "delete", PUT: "edit"]
 		}
+		"/mail/body/$id?"(controller: "mail") {
+			action = [GET:"body"]
+		}
+		"/test"(controller: "mail"){
+			action = [GET:"test"]
+		}
 
 		"/"(view:"/index")
 		"/client"(view:"/client")

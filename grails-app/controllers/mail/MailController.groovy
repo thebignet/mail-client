@@ -1,10 +1,15 @@
 package mail
 import grails.converters.JSON
+import org.joda.time.LocalDate
 
 class MailController {
 
     def index() {
-		render( Mail.findAll().collect{ [id: it.id, sender: it.sender, subject: it.subject, date: it.date?.localMillis, star: it.star ]} as JSON )
+		render( Mail.findAll().collect{ [id: it.id, sender: it.sender, subject: it.subject, date: it.date?.localMillis, star: it.star, read: it.read ]} as JSON )
+	}
+	def body(){
+		def mail = Mail.read(params.id)
+		render( [id: mail.id, body: mail.body] as JSON)
 	}
     def save() {
 		render([] as JSON)
@@ -15,16 +20,20 @@ class MailController {
 	}
 	
 	def edit() {
-		Mail mail = Mail.get(params.id)
+		def mail = Mail.get(request.JSON.id)
 		println request.JSON
-		println "Mail before params : "+mail.subject+" with star "+mail.star
-		mail.properties = request.JSON
-		println "Mail after params : "+mail.subject+" with star "+mail.star
+		bindData(mail, request.JSON, [exclude: ['date']])
+		mail.date = new LocalDate(request.JSON.date)
 		if(!mail.save(flush:true)){
-			println "bwaaah"
-			println mail.errors
+			mail.errors.each {
+				println it
+			}
 		}
-		render([] as JSON)
+		render(Mail.read(request.JSON.id) as JSON)
+	}
+	
+	def test(){
+		render(Mail.findAll() as JSON)
 	}
 	
 	def star(){

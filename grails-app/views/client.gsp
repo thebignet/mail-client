@@ -20,18 +20,26 @@
 
       <div class="content">
 
-        <table class="table table-condensed table-hover">
-		  <thead>
-		    <tr>
-		      <th class="span1"><input type="checkbox" class="selectAll"><i class="icon-refresh refresh"></i></th>
-		      <th class="span2"></th>
-		      <th class="span9"></th>
-		      <th class="span2"></th>
-		    </tr>
-		  </thead>
-		  <tbody id="mail-list">
-		  </tbody>
-		</table>
+		<div class="row">
+			<div class="span12">
+		        <table class="table table-condensed table-hover">
+				  <thead>
+				    <tr>
+				      <th class="span1"><input type="checkbox" class="selectAll"><i class="icon-refresh refresh"></i></th>
+				      <th class="span2"></th>
+				      <th class="span9"></th>
+				      <th class="span2"></th>
+				    </tr>
+				  </thead>
+				  <tbody id="mail-list">
+				  </tbody>
+				</table>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span12" id="mail-body">
+			</div>
+		</div>
 
       </div>
 
@@ -48,8 +56,12 @@
 		{! } !}
 		></i></a></td>
       <td><strong>{{sender}} ({{id}})</strong></td>
-      <td><strong>{{subject}}</strong></td>
+      <td class="subject"><strong>{{subject}}</strong></td>
       <td><strong>{!print(Globalize.format( new Date(date), "dd/MM/yyyy"));!}</strong></td>
+    </script>
+
+    <script type="text/template" id="mail-body-template">
+      {{body}}
     </script>
 
     <script type="text/template" id="stats-template">

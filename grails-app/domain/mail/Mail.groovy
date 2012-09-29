@@ -8,7 +8,13 @@ class Mail {
 	String subject
 	LocalDate date
 	Boolean star = false
+	Boolean read = false
+	String body
 	
     static constraints = {
     }
+	
+	String toString(){
+		return "sub <"+subject+"> snd <"+sender+"> dat <"+date+"> str <"+star+">"
+	}
 }

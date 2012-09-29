@@ -8,22 +8,31 @@ $(function(){
     // Mail model
     
     window.Mail = Backbone.Model.extend({
-	
-		// Default attributes for a todo item.
 		defaults: function() {
 			return {
 				id: "",
 				sender: "",
 				subject: "",
 				date: "",
-				star: false
+				star: false,
+				read: false
 			};
 		},
-		
 		toggleStar: function(){
 			this.save({star: !this.get("star")});
 		}
 	
+    });
+    
+    window.MailBody = Backbone.Model.extend({
+    	urlRoot: 'mail/body',
+		defaults: function() {
+			return {
+				id: "",
+				body: ""
+			};
+		},
+		
     });
     
     window.MailList = Backbone.Collection.extend({
@@ -33,15 +42,35 @@ $(function(){
     
     window.Mails = new MailList;
     
+    window.MailBodyView = Backbone.View.extend({
+    	el: $("#mail-body"),
+    	template: _.template($('#mail-body-template').html()),
+        events: {
+        },
+    	initialize: function(){
+    		this.model.bind('change',this.render, this);
+    		this.model.bind('destroy',this.render, this);
+    	},
+    	render: function(){
+			$(this.el).html(this.template(this.model.toJSON()));
+			return this;
+    	}
+    });
+
     window.MailView = Backbone.View.extend({
     	tagName:"tr",
     	template: _.template($('#mail-template').html()),
-        // The DOM events specific to an item.
         events: {
-            "click .star"      : "toggleStar"
+            "click td.star"       : "toggleStar",
+            "click td:not(.star)" : "showBody"
         },
         toggleStar: function() {
-          this.model.toggleStar();
+            this.model.toggleStar();
+        },
+        showBody: function() {
+        	var mailBody = new MailBody({id:this.model.get("id")});
+        	mailBody.fetch();
+    		new MailBodyView({model:mailBody});
         },
     	initialize: function(){
     		this.model.bind('change',this.render, this);
