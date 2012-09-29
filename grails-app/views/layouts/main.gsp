@@ -6,7 +6,7 @@
 		<g:layoutHead/>
 		<r:layoutResources />
 	</head>
-	<body style="padding-top:60px">
+	<body">
 		<nav class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
 				<div class="container-fluid">
