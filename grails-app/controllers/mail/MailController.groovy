@@ -21,7 +21,6 @@ class MailController {
 	
 	def edit() {
 		def mail = Mail.get(request.JSON.id)
-		println request.JSON
 		bindData(mail, request.JSON, [exclude: ['date']])
 		mail.date = new LocalDate(request.JSON.date)
 		if(!mail.save(flush:true)){
