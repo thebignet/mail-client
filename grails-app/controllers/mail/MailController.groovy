@@ -5,7 +5,8 @@ import org.joda.time.LocalDate
 class MailController {
 
     def index() {
-		render( Mail.findAll().collect{ [id: it.id, sender: it.sender, subject: it.subject, date: it.date?.localMillis, star: it.star, read: it.read ]} as JSON )
+		def mails = Mail.findAll().collect{ [id: it.id, sender: it.sender, subject: it.subject, date: it.date?.localMillis, star: it.star, read: it.read ]}
+		render "callback(${mails as JSON})"
 	}
 	def body(){
 		def mail = Mail.read(params.id)

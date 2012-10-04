@@ -22,7 +22,7 @@
 
 		<div class="row">
 			<div class="span12">
-		        <table class="table table-condensed table-hover">
+		        <table class="table table-condensed table-hover" id="mail-table">
 				  <thead>
 				    <tr>
 				      <th class="span1"><input type="checkbox" class="selectAll"><i class="icon-refresh refresh"></i></th>
@@ -48,7 +48,7 @@
     <!-- Templates -->
 
     <script type="text/template" id="mail-template">
-      <td class="star"><input type="checkbox"> <a href="#"><i
+      <td class="star"><input type="checkbox"{! if(checked){ !}checked{! } !}> <a href="#"><i
       	{! if (star) { !}
 			class="icon-star"
 		{! } else { !}
@@ -81,6 +81,79 @@
       {! } !}
     </script>
 
+		<!-- sample template for pagination UI -->
+		<script type="text/html" id="tmpServerPagination">
+			<div class="breadcrumb">
+
+			  	<span class="cell">
+					<% for(p=0;p<=totalPages;p++){
+					%>
+						<% if (currentPage == p) { %>
+							<span class="page selected"><%= p %></span>
+						<% } else { %>
+							<a href="#" class="page"><%= p %></a>
+						<% } %>	
+					<%	
+					}%>
+
+					<span class="divider">/</span>
+
+					<% if (currentPage > firstPage) { %>
+						<a href="#" class="serverprevious">Previous</a>
+					<% }else{ %>
+						<span>Previous</span>
+					<% }%>
+
+					<% if (currentPage < totalPages) { %>
+						<a href="#" class="servernext">Next</a>
+					<% } %>
+
+					<% if (firstPage != currentPage) { %>
+						<a href="#" class="serverfirst">First</a>
+					<% } %>
+
+					<% if (lastPage != currentPage) { %>
+						<a href="#" class="serverlast">Last</a>
+					<% } %>
+
+
+					<span class="divider">/</span>
+
+					<span class="cell serverhowmany">
+						Show
+						<a href="#" class="selected">3</a>
+						|
+						<a href="#" class="">9</a>
+						|
+						<a href="#" class="">12</a>
+						per page
+					</span>
+
+					
+					<span class="divider">/</span>
+					<span class="cell first records">
+						Page: <span class="current"><%= currentPage %></span>
+						of
+						<span class="total"><%= totalPages %></span>
+									shown
+					</span>
+
+			<span class="divider">/</span>
+
+				<span class="cell sort">
+					<a href="#" class="orderUpdate btn small">Sort by:</a>
+				</span>
+
+				<select id="sortByField">
+					<option value="cid">Select a field to sort on</option>
+				 	<option value="ReleaseYear">Release year</option>
+				 	<option value="ShortName">Alphabetical</option>
+				</select>
+			  	</span>
+
+
+			  </div>
+		  </script>
   </body>
 
 </html>
